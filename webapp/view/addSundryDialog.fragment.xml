@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>addSundryDialogTitle}" contentWidth="30rem">
+        <content>
+            <VBox fitContainer="true">
+                <items>
+                    <Text text="{i18n>addSundryDialogTitle}?" class="sapUiSmallMarginBottom" />
+                    <SearchField search="onAddSundrySearch" tooltip="{i18n>partsEnquiryMasterSearchTooltip}" width='100%' />
+                    <List id="addMaterialList" mode="SingleSelectMaster" select="onAddSundrySelect" growing="true" growingScrollToLoad="true" updateFinished="onAddSundrySelect"/>
+                </items>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="{i18n>cancel}" type="Transparent" press="onDialogCancel"></Button>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

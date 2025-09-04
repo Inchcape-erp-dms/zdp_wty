@@ -1,0 +1,18 @@
+<mvc:View controllerName="hicron.dp.wty.controller.Create" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified" displayBlock="true">
+    <Page id="createClaimPage" >
+        <headerContent>
+            <core:Fragment fragmentName="encollab.dp.info.InfoButton" type="XML" />
+        </headerContent>
+        <content>
+        </content>
+        <footer>
+            <Toolbar>
+                <core:Fragment fragmentName="encollab.dp.about.MessageButton" type="XML" />
+                <ToolbarSpacer/>
+                <ToolbarSpacer/>
+                <Button id="onSaveButton" text="{i18n>wtyClaimCreateSave}" type="Emphasized" press="onSave" enabled="false" visible="false" />
+                <Button text="{i18n>wtyClaimCreateCancel}" press="onCancel" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

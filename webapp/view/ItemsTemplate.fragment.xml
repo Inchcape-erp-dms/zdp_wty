@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:dp="encollab.dp.controls" xmlns="sap.m" xmlns:l="sap.ui.layout">
+    <dp:ColumnListItem type="Inactive" counter="0" role="{= ${CausalPart} === 'X' ? 'CausalPart' : ${CausalLabor} === 'X' ? 'CausalLabor' : ''}">
+        <dp:cells>
+            <Text text="{parts:[{path:'ItemTypeDescription'},{path:'CausalPart'},{path:'CausalLabor'}],formatter:'.itemTypeFormatter'}" maxLines="0"></Text>
+            <ObjectIdentifier title="{= ${ClaimItemShortText} === '' ? ${MaterialDesc} : ${ClaimItemShortText} }" text="{= ${ItemKey} === '' ? ${Material} : ${ItemKey} }" badgeNotes="false" badgePeople="false" badgeAttachments="false" titleActive="true" titlePress="onItemPress"></ObjectIdentifier>
+            <ObjectAttribute text="{path:'Qty',formatter:'.formatter.MaxTwoDecimals'} {UoM}" press="onChangeItemQty" active="{parts:[{path:'ItemGUID'},{path:'viewModel>/isChangeable'}],formatter:'.canChangeQty'}" />
+            <ObjectAttribute text="{path:'ValueIC',formatter:'.formatter.Value'}" press="onChangeItemValue" active="{parts:[{path:'ItemGUID'},{path:'viewModel>/isChangeable'}],formatter:'.canChangeValue'}" class="wtyValueIC" />
+            <ObjectNumber number="${ValueOC}" state="{parts:[{path:'ValueIC'},{path:'ValueOC'}],formatter:'.formatter.wtyICOCState'}"></ObjectNumber>
+            <FlexBox alignItems="Stretch" >
+                <Input
+                    placeholder="{i18n>wtyPlaceHolderSerial}"
+                    value="{SerNumber}"
+                    type="Text"
+                    editable="false"
+                    visible="{= ${SerNumberReq} === 'X'}"
+                    valueState="{= ${SerNumber} ==='' ? 'Error' : 'None' }"
+                    maxLength="40"
+                    width="225px">
+                    <customData>
+                        <core:CustomData key="colorEmptyClass" value="{SerNumber}" writeToDom="true" />
+                    </customData>
+                </Input>
+                <Button
+                    icon="sap-icon://edit"
+                    press="onEditSerial"
+                    visible="{= ${SerNumberReq} === 'X' &amp;&amp; ${viewModel>/isSubmitable} }"
+                />
+            </FlexBox>
+            <ObjectStatus class="sapUiSmallMarginBottom" text="Return Part" state="Error" icon="sap-icon://alert" visible="{= ${PartsReturnStatusFromClaimant} === '1'}" />
+            <Button icon="sap-icon://delete" press="onItemDelete" tooltip="Delete item" visible="{viewModel>/isChangeable}" />
+        </dp:cells>
+    </dp:ColumnListItem>
+</core:FragmentDefinition>

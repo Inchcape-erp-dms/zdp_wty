@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<UploadCollection id="idWtyAttachments" uploadUrl="{path:'GUID',formatter:'.headerUrl'}/WtyHeaderAttachments" items="{WtyHeaderAttachments}"
+		change="onAttachUploadChange" fileDeleted="onAttachDelete" uploadEnabled="true" uploadComplete="onAttachUploadComplete">
+		<UploadCollectionItem documentId="{DocID}" contributor="{CreatedBy}" fileName="{ComponentName}"
+			fileSize="{path:'ComponentSize',formatter:'.formatter.parseFloat'}" mimeType="{MIMEType}"
+			uploadedDate="{ path:'CreatedAt', formatter:'.formatter.Date' }" url="{path:'DocID',formatter:'.attachmentURL'}" visibleEdit="false"
+			visibleDelete="{viewModel>/isChangeable}"/>
+	</UploadCollection>
+</core:FragmentDefinition>

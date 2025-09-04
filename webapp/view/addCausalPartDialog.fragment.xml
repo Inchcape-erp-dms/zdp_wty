@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>addMaterialCausalDialogTitle}" contentWidth="30rem">
+        <content>
+            <VBox fitContainer="true">
+                <items>
+                    <Text text="{i18n>addMaterialCausalDialogTitle}?" class="sapUiSmallMarginBottom" />
+                    <SearchField search="onAddMaterialSearch" tooltip="{i18n>partsEnquiryMasterSearchTooltip}" width='100%' />
+                    <List id="addMaterialList" mode="SingleSelectMaster" select="onAddCausalSelect" growing="true" growingScrollToLoad="true" updateFinished="onAddCausalSelect" />
+                </items>
+            </VBox>
+        </content>
+        <buttons>
+<!--             <Button text="{i18n>cancel}" type="Transparent" press="onDialogCancel"></Button> -->
+<!---->
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:c="encollab.dp.controls" xmlns="sap.m">
+    <c:PartObjectHeader
+      responsive="true"
+      title="{MatlDesc}"
+      intro="{MaterialNr}"
+      showOnlyPrefixText="{= ${ItemCatGroup} === 'ERLA' || ${ItemCatGroup} === 'BANS'}"
+      prefixText="{= ${ItemCatGroup} === 'BANS' ? 'Direct Supply Item' : ${ItemCatGroup} === 'ERLA' ? 'See BoM tab for Stock Availability' : 'SOH'}"
+      number=" {= ${ItemCatGroup} === 'BANS' ? '' : parseFloat(${StockOnHand}).toFixed(0) }"
+      numberUnit="{= ${ItemCatGroup} === 'ERLA' || ${ItemCatGroup} === 'BANS' ? '' : ${UoMDescription}}"
+      showTitleSelector="false"
+      titleSelectorPress="onPress"
+      showMarkers="false"
+      markFlagged="true"
+      markFavorite="true"
+      fullScreenOptimized="true"
+      numberState="{path:'StockOnHand',formatter:'.formatter.quantityStateSOH'}"
+      backgroundDesign="Translucent">
+        <c:attributes>
+            <ObjectAttribute title="{/#Material/MatPrices/RRP/@sap:label}" text="$ {path:'MatPrices/RRP',formatter:'.formatter.currencyValue'}" />
+            <ObjectAttribute title="{/#Material/MatPrices/FittedRRP/@sap:label}" text="{parts:[{path:'MatPrices/FittedRRP'},{path:'MatPrices/RRP'}], formatter: '.fittedRRPFormatter' }" />
+            <ObjectAttribute title="{/#Material/MatPrices/List/@sap:label}" text="$ {path:'MatPrices/List',formatter:'.formatter.currencyValue'}" />
+            <ObjectAttribute title="{/#Material/MatPrices/DailyOrder/@sap:label}" text="$ {path:'MatPrices/DailyOrder',formatter:'.formatter.currencyValue'}" />
+            <ObjectAttribute title="{/#Material/MatPrices/StockOrder/@sap:label}" text="$ {path:'MatPrices/StockOrder',formatter:'.formatter.currencyValue'}" />
+            <ObjectAttribute title="{/#Material/MatPrices/Trade/@sap:label}" text="$ {path:'MatPrices/Trade',formatter:'.formatter.currencyValue'}" visible="{path:'MatPrices/Trade',formatter:'.formatter.isAustralia'}" />
+            <ObjectAttribute title="{/#Material/MatPrices/Smash/@sap:label}" text="$ {path:'MatPrices/Smash',formatter:'.formatter.currencyValue'}" visible="{path:'MatPrices/Trade',formatter:'.formatter.isNZ'}"/>
+            <ObjectAttribute title="{/#Material/OrderMultiplier/@sap:label}" text="{path:'OrderMultiplier',formatter:'.formatter.Number'}" visible="{= ${OrderMultiplier} > 0}"/>
+            <ObjectAttribute title="{/#Material/ModelCode/@sap:label}" text="{ModelCode} - {ModelCodeDesc}" />
+            <ObjectAttribute title="{i18n>boQuantity}" text="{path: 'BOQuantity', formatter: '.formatter.toInteger' }" class="boQty"/>
+        </c:attributes>
+        <c:statuses>
+            <ObjectStatus title="Status" text="{DPstatus}" state="{path:'StockOnHand',formatter:'.formatter.quantityState'}" />
+        </c:statuses>
+    </c:PartObjectHeader>
+    <MessageStrip text="{SalesText}" visible="{path:'SalesText',formatter:'.formatter.exists'}" type="Error" showIcon="true" showCloseButton="false">
+    </MessageStrip>
+</core:FragmentDefinition>

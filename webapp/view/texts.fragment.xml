@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:dp="encollab.dp.controls" xmlns="sap.m">
+    <Panel class="sapThemeBaseBG sapUiResponsiveMargin" width="auto" expandable="{device>/isPhone}" expanded="{= !${device>/isPhone} }">
+        <headerToolbar>
+            <Toolbar height="1.8rem">
+                <Title text="{/WtyHeaders/CustomerComplaint/#@sap:label}" />
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <TextArea id="customerComplaint" value="{CustomerComplaint}" rows="{= ${device>/isPhone} ? 6 : 2}" width="100%" height="8rem" maxLength="1024" enabled="{viewModel>/isTextsChangeable}" change="onTextFieldChange" liveChange="onTextFieldLiveChange" />
+        </content>
+    </Panel>
+    <Panel class="sapThemeBaseBG sapUiResponsiveMargin" width="auto" expandable="{device>/isPhone}" expanded="{= !${device>/isPhone} }">
+        <headerToolbar>
+            <Toolbar height="1.8rem">
+                <Title text="{/WtyHeaders/Cause/#@sap:label}" />
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <TextArea id="cause" value="{Cause}" rows="{= ${device>/isPhone} ? 6 : 2}" width="100%" height="8rem" maxLength="1024" enabled="{viewModel>/isTextsChangeable}" change="onTextFieldChange" liveChange="onTextFieldLiveChange" />
+        </content>
+    </Panel>
+    <Panel class="sapThemeBaseBG sapUiResponsiveMargin" width="auto" expandable="{device>/isPhone}" expanded="{= !${device>/isPhone} }">
+        <headerToolbar>
+            <Toolbar height="1.8rem">
+                <Title text="{/WtyHeaders/Correction/#@sap:label}" />
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <TextArea id="correction" value="{Correction}" rows="{= ${device>/isPhone} ? 6 : 2}" width="100%" height="8rem" maxLength="1024" enabled="{viewModel>/isTextsChangeable}" change="onTextFieldChange" liveChange="onTextFieldLiveChange" />
+        </content>
+    </Panel>
+    <Panel class="sapThemeBaseBG sapUiResponsiveMargin" width="auto" expandable="{device>/isPhone}" expanded="{= !${device>/isPhone} }">
+        <headerToolbar>
+            <Toolbar height="1.8rem">
+                <Title text="{/WtyHeaders/GeneralText/#@sap:label}" />
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <TextArea id="generalText" value="{GeneralText}" rows="{= ${device>/isPhone} ? 6 : 2}" width="100%" height="8rem" maxLength="1024" enabled="{viewModel>/isGeneralTextChangeable}" change="onTextFieldChange" liveChange="onTextFieldLiveChange" />
+        </content>
+    </Panel>
+    <Button id="saveTextsButton" text="Save changes" icon="sap-icon://save" press="onSaveTexts" visible="{viewModel>/saveButtonTexts}"/>
+</core:FragmentDefinition>

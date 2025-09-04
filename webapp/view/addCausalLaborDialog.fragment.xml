@@ -1,0 +1,16 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>addWtyCausalLaborDialogTitle}" contentWidth="35rem">
+        <content>
+            <VBox fitContainer="true">
+                <items>
+                    <Text text="{i18n>addLabourCausalDialogTitle}?" class="sapUiSmallMarginBottom" />
+                    <SearchField search="onAddLabourSearch" tooltip="{i18n>partsEnquiryMasterSearchTooltip}" width='100%' id="searchField"/>
+                    <List id="addLabourList" mode="SingleSelectMaster" select="onAddCausalLabourSelect" growing="true" growingScrollToLoad="true" updateFinished="onAddCausalLabourSelect" />
+                </items>
+            </VBox>
+        </content>
+        <buttons></buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,80 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Wizard id="CreateClaimWizard" complete="wizardCompletedHandler" stepActivate="onStepActivate" enableBranching="true" finishButtonText="{i18n>create}">
+        <WizardStep id="claimStep1" title="Claim Details" validated="false" nextStep="claimStep2">
+            <MessageStrip class="sapUiSmallMarginBottom" text="All fields are required." showIcon="true" />
+            <core:Fragment fragmentName="hicron.dp.wty.view.standardForm" type="XML" />
+        </WizardStep>
+        <WizardStep id="claimStep2" validated="false" title="Selection Fields" subsequentSteps="claimStep3, claimStep4">
+            <MessageStrip id="claimStep2Message" class="sapUiSmallMarginBottom" text="All fields are required." showIcon="true" />
+            <form:SimpleForm id="claimStep2Form" editable="true">
+                <Label text="{i18n>Symptom Category}" required="false" />
+                <Select id="symptomCategory" autoAdjustWidth="true" forceSelection="false" items="{path: 'WtySymptomCateg>/results'}" change="onStep2FieldChange">
+                    <core:Item key="{WtySymptomCateg>SymptomCategory}" text="{WtySymptomCateg>SymptomCategory}-{WtySymptomCateg>SymptomCategName}" />
+                </Select>
+                <Label text="{/#WtyHeader/SymptomCode/@sap:label}" required="true" />
+                <Select id="symptomCode" autoAdjustWidth="true" forceSelection="false" items="{path: 'WtySymptomCodes>/results', filters: [{path:'SymptomCategory',operator:'NE',value1:''}]}" selectedKey="{newClaim>/Detail/SymptomCode}" change="onStep2FieldChange">
+                    <core:Item key="{WtySymptomCodes>SymptomCode}" text="{WtySymptomCodes>SymptomCode}-{WtySymptomCodes>SymptomCodeName}" />
+                </Select>
+                <Label text="{i18n>Trouble Category}" required="false" />
+                <Select id="troubleCategory" autoAdjustWidth="true" forceSelection="false" items="{path: 'WtyTroubleCategory>/results'}" change="onStep2FieldChange">
+                    <core:Item key="{WtyTroubleCategory>TroubleCategory}" text="{WtyTroubleCategory>TroubleCategory}-{WtyTroubleCategory>TroubleCategName}" />
+                </Select>
+                <Label text="{/#WtyHeader/TroubleCode/@sap:label}" required="true" />
+                <Select id="troubleCode" autoAdjustWidth="true" forceSelection="false" items="{path: 'WtyTroubleCodes>/results', filters: [{path:'TroubleCategory',operator:'NE',value1:''}]}" selectedKey="{newClaim>/Detail/TroubleCode}" change="onStep2FieldChange">
+                    <core:Item key="{WtyTroubleCodes>TroubleCode}" text="{WtyTroubleCodes>TroubleCode}-{WtyTroubleCodes>TroubleCodeName}" />
+                </Select>
+                <Label id="partsInvoiceDateLabel" text="{/#WtyHeader/PartsInvoiceDate/@sap:label}" required="true" />
+                <DatePicker id="partsInvoiceDatePicker" placeholder="Enter Parts Invoice Date ..." value="{path:'newClaim>/Detail/PartsInvoiceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'full', strictParsing: true}}" change="onStep2FieldChange" width="40%" valueState="{path:'newClaim>/Detail/PartsInvoiceDate', formatter:'.isValidDate'}" visible="{= ${newClaim>/Detail/ClaimType} === 'ZZPC' || ${newClaim>/Detail/ClaimType} === 'ZZPW' }"/>
+                <!--                 <Label text="{/#WtyHeader/MainOperationCode/@sap:label}" required="true" />
+                <Select id="claimOperationCode" autoAdjustWidth="true" selectedKey="{newClaim>/Detail/MainOperationCode}" change="onStep2FieldChange" /> -->
+            </form:SimpleForm>
+        </WizardStep>
+        <WizardStep id="claimStep3" validated="{= ${newClaim>/Detail/ClaimType} !== 'ZZPC'}" nextStep="claimStep4" activate="optionalStepActivation" title="Free text fields">
+            <MessageStrip id="claimStep3Message" class="sapUiSmallMarginBottom" text="These fields are optional." showIcon="true" />
+            <form:SimpleForm id="claimStep3Form" editable="true">
+                <Label text="{/#WtyHeader/LocationGridCode/@sap:label}" />
+                <Input id="locationGridCode" value="{newClaim>/Detail/LocationGridCode}" placeholder="Enter location grid code here..." valueLiveUpdate="true" liveChange="onStep3FieldChange" valueStateText="Enter location grid code" valueState="{= ${newClaim>/Detail/LocationGridCode} === null ? 'Error' : 'None' }" maxLength="3" />
+                <Label text="{/#WtyHeader/DiagnosisTroubleCode/@sap:label}" />
+                <Input id="diagnosisTroubleCode" value="{newClaim>/Detail/DiagnosisTroubleCode}" placeholder="Enter diagnosis trouble code here..." valueLiveUpdate="true" liveChange="onStep3FieldChange" valueStateText="Enter trouble code" valueState="{= ${newClaim>/Detail/DiagnosisTroubleCode} === null ? 'Error' : 'None' }" maxLength="71" />
+            </form:SimpleForm>
+        </WizardStep>
+        <WizardStep id="claimStep4" title="Summary">
+            <form:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+                <form:content>
+                    <Label text="{/#WtyHeader/VIN/@sap:label}" visible="{= ${newClaim>/ViewData/vin}.length > 0}"/>
+                    <Text text="{vin>VIN}" visible="{= ${newClaim>/ViewData/vin}.length > 0}" />
+                    <Label text="Part" visible="{= ${newClaim>/ViewData/matnr}.length > 0}"/>
+                    <Text text="{MaterialNr}" visible="{= ${newClaim>/ViewData/matnr}.length > 0}" />
+                    <Label text="{/#WtyHeader/ClaimType/@sap:label}" />
+                    <Text text="{newClaim>/Detail/ClaimTypeDesc}" />
+                    <Label text="{/#WtyHeader/PartnerName/@sap:label}" />
+                    <Text id="partnerChosen" text="{newClaim>/Detail/PartnerName}" />
+                    <Label text="{/#WtyHeader/ReferenceDate/@sap:label}" />
+                    <Text id="refDateChosen" text="{path:'newClaim>/Detail/ReferenceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'full', strictParsing: true}}" />
+                    <Label text="{/#WtyHeader/ReferenceNr/@sap:label}" />
+                    <Text text="{newClaim>/Detail/ReferenceNr}" />
+                    <Label text="{/#WtyHeader/Mileage/@sap:label}" />
+                    <Text text="{newClaim>/Detail/Mileage}" visible="{= ${newClaim>/Detail/ClaimType} !== 'ZZPC'}"/>
+                    <Label text="{/#WtyHeader/SymptomCode/@sap:label}" />
+                    <Text text="{newClaim>/Detail/SymptomCodeDesc}" />
+                    <Label text="{/#WtyHeader/TroubleCode/@sap:label}" />
+                    <Text text="{newClaim>/Detail/TroubleCodeDesc}" />
+                    <Label text="{/#WtyHeader/PartsInvNo/@sap:label}" />
+                    <Text text="{newClaim>/Detail/PartsInvNo}" visible="{= ${newClaim>/ViewData/partsClaim}}" />
+                    <Label id="partsInvoiceDateChosenLabel" text="{/#WtyHeader/PartsInvoiceDate/@sap:label}" />
+                    <Text id="partsInvoiceDateChosen" text="{path:'newClaim>/Detail/PartsInvoiceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'full', strictParsing: true}}" />
+                    <Label text="{/#WtyHeader/PartsFittedMlg/@sap:label}" />
+                    <Text text="{newClaim>/Detail/PartsFittedMlg}" visible="{= ${newClaim>/ViewData/partsClaim} &amp;&amp; ${newClaim>/Detail/ClaimType} !== 'ZZPC'}" />
+                    <!--                     <Label text="{/#WtyHeader/MainOperationCode/@sap:label}" />
+                    <Text text="{newClaim>/Detail/MainOperationCodeDesc}" /> -->
+                    <Label text="{/#WtyHeader/LocationGridCode/@sap:label}" />
+                    <Text text="{newClaim>/Detail/LocationGridCode}" />
+                    <Label text="{/#WtyHeader/DiagnosisTroubleCode/@sap:label}" />
+                    <Text text="{newClaim>/Detail/DiagnosisTroubleCode}" />
+                </form:content>
+            </form:SimpleForm>
+            <Button press="discardProgress" text="{i18n>wtyClaimWizardBackToStep1}" />
+            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>wtyClaimWizardDiscard}" showIcon="true" />
+        </WizardStep>
+    </Wizard>
+</core:FragmentDefinition>

@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <ResponsivePopover showHeader="false" class="sapUiPopupWithPadding" placement="Right" offsetX="-250">
+        <beginButton>
+            <Button icon="sap-icon://search" tooltip="{i18n>materialPopoverGo} {MaterialNr}" press="materialPopoverGo" />
+        </beginButton>
+        <endButton>
+            <Button icon="sap-icon://sys-cancel" tooltip="{i18n>materialPopoverClose}" press="materialPopoverClose" />
+        </endButton>
+        <content>
+            <core:Fragment fragmentName="hicron.dp.wty.view.PartHeader" type="XML" />
+        </content>
+    </ResponsivePopover>
+</core:FragmentDefinition>

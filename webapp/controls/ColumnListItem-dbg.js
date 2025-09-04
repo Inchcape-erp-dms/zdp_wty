@@ -1,0 +1,2 @@
+jQuery.sap.declare("encollab.dp.controls.ColumnListItem");sap.m.ColumnListItem.extend("encollab.dp.controls.ColumnListItem",{metadata:{properties:{role:{type:"string",defaultValue:"Default"}}},renderer:{renderLIAttributes:function(e,t){e.addClass("sapMListTblRow");var l=t.getVAlign();if(l!=sap.ui.core.VerticalAlign.Inherit){e.addClass("sapMListTblRow"+l)}e.addClass("role"+t.getRole())}}});
+//# sourceMappingURL=ColumnListItem-dbg.js.map

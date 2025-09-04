@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+    <Dialog title="{i18n>addConsignmentTitle}" contentWidth="30rem" contentHeight="28rem">
+        <content>
+            <NavContainer>
+                <pages>
+                    <Page showHeader="false">
+                        <content>
+                            <form:SimpleForm editable="true">
+                                <Label text="{/#WtyConsignment/ConsignmentNote/@sap:label}" required="true" />
+                                <Input valueLiveUpdate="true" liveChange="onConsChange" value="{consign>ConsignmentNote}" />
+                                <Label text="{/#WtyConsignment/NofCartons/@sap:label}" required="true" />
+                                <Input type="Number" valueLiveUpdate="true" liveChange="onConsChange" value="{consign>NofCartons}" />
+                                <Label text="{/#WtyConsignment/GrossWeight/@sap:label}" required="true" />
+                                <Input type="Number" valueLiveUpdate="true" liveChange="onConsChange" value="{consign>GrossWeight}" />
+                                <Label text="{/#WtyConsignment/Dimensions/@sap:label}" required="true" />
+                                <Input valueLiveUpdate="true" liveChange="onConsChange" value="{consign>Dimensions}" />
+                                <Label text="{/#WtyConsignment/FreightProvider/@sap:label}" required="true" />
+                                <Input valueLiveUpdate="true" liveChange="onConsChange" value="{consign>FreightProvider}" />
+                            </form:SimpleForm>
+                        </content>
+                    </Page>
+                </pages>
+            </NavContainer>
+        </content>
+        <buttons>
+            <Button text="{i18n>create}" type="Transparent" enabled="{consign>ReadyToSubmit}" press="onConsignmentCreate"></Button>
+            <Button text="{i18n>cancel}" type="Transparent" press="onDialogCancel"></Button>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <UploadCollection items="{Forms}" uploadEnabled="false" numberOfAttachmentsText="Forms {0}">
+        <UploadCollectionItem fileName="{ObjTypeDesc}.pdf" url="{parts:[{path:'ClaimNr'},{path:'ObjType'}],formatter:'.formURL'}" mimeType="application/pdf" visibleEdit="false" visibleDelete="false" />
+    </UploadCollection>
+</core:FragmentDefinition>

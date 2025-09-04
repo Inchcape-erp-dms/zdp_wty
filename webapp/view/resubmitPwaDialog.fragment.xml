@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>resubmitPwaDialogDialogTitle}" contentWidth="30rem" >
+        <content>
+            <Text text="{i18n>resubmitPwaDialogDialogConfirmMsg}" class="sapUiSmallMarginBottom" />
+        </content>
+        <buttons>
+            <Button text="{i18n>confirm}" type="Transparent" press="onResubmitPwaDialogConfirm"></Button>
+            <Button text="{i18n>cancel}" type="Transparent" press="onDialogCancel"></Button>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

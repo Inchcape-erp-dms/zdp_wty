@@ -1,0 +1,34 @@
+<core:FragmentDefinition 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core">
+    <form:SimpleForm editable="true">
+        <Label text="{/#WtyHeader/ClaimType/@sap:label}" required="true" />
+        <Select id="claimType" autoAdjustWidth="true" selectedKey="{newClaim>/Detail/ClaimType}" change="onClaimTypeChange"/>
+        <!-- <Button icon="sap-icon://synchronize" press="onClaimTypeRefresh" width="40px"/> -->
+        <Label text="{/#WtyHeader/PWACategory/@sap:label}" required="true" />
+        <Select id="pwaCategory" autoAdjustWidth="true" visible="{= ${newClaim>/Detail/ClaimType} === 'ZAUT'}" forceSelection="false" change="onPWACategoryChange" valueStateText="{i18n>wtyPWACategoryError}" valueState="Error"/>
+        <Label text="{/#WtyHeader/PartnerName/@sap:label}" required="true" />
+        <Select id="partner" autoAdjustWidth="true" items="{core>/Users('SY-UNAME')/Dealers}" selectedKey="{newClaim>/Detail/PartnerNr}" change="onDealerChange">
+            <core:Item key="{core>Id}" text="{core>Name}" />
+        </Select>
+        <Label text="{= ${newClaim>/ViewData/partsClaim} ? 'Date of Failure' : 'Repair Date'}" required="true" />
+        <DatePicker id="idDatePick" placeholder="Enter Reference Date ..." value="{path:'newClaim>/Detail/ReferenceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'full', strictParsing: true}}" change="onRefDateChange" width="40%" valueState="{path:'newClaim>/Detail/ReferenceDate', formatter:'.isValidDate'}" />
+        <Label text="{= ${newClaim>/ViewData/partsClaim} ? 'Dealer Reference (free text)' : 'Dealer RO Number'}" required="{= ${newClaim>/Detail/ClaimType} !== 'ZAUT'}" />
+        <Input value="{newClaim>/Detail/ReferenceNr}" placeholder="Enter header text here..." valueLiveUpdate="true" valueStateText="Enter reference" valueState="{parts:[{path:'newClaim>/Detail/ClaimType'},{path:'newClaim>/Detail/ReferenceNr'}], formatter:'.refNoValueState'}" />
+        <Label text="{/#WtyHeader/Mileage/@sap:label}" visible="{= ${newClaim>/Detail/ClaimType} !== 'ZZPC'}"/>
+        <HBox visible="{= ${newClaim>/Detail/ClaimType} !== 'ZZPC'}">
+            <Input id="idKmsInput" type="Number" value="{newClaim>/Detail/Mileage}" valueLiveUpdate="true" change="onMileageChange" liveChange="onStep1FieldChange" valueStateText="{i18n>wtyKmsError}" />
+            <Text id="idKms" />
+        </HBox>
+        <Label text="Original Invoice Number"/>
+        <Input id="idPrtInv" value="{newClaim>/Detail/PartsInvNo}" maxLength="10" valueLiveUpdate="true" liveChange="onStep1FieldChange" valueStateText="{i18n>wtyPartsInvoiceError}" width="25%" visible="{= ${newClaim>/ViewData/partsClaim}}" />
+        <Label text="Original Invoice Date" required="true" />
+        <HBox visible="{= ${newClaim>/ViewData/partsClaim}}">
+            <DatePicker id="idPrtInvDate" placeholder="Enter Parts Invoice Date ..." value="{path:'newClaim>/Detail/PartsInvoiceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'full', strictParsing: true}}" change="onRefDateChange" width="100%" valueState="{path:'newClaim>/Detail/PartsInvoiceDate', formatter:'.isValidDate'}"/>
+            <Text id="idDataLabel"/>
+        </HBox>
+        <Label text="{/#WtyHeader/PartsFittedMlg/@sap:label}" />
+        <Input id="idPrtKms" type="Number" value="{newClaim>/Detail/PartsFittedMlg}" valueLiveUpdate="true" liveChange="onStep1FieldChange" valueStateText="{i18n>wtyKmsError}" width="50%" visible="{= ${newClaim>/ViewData/partsClaim} &amp;&amp; ${newClaim>/Detail/ClaimType} !== 'ZZPC'}" />
+    </form:SimpleForm>
+</core:FragmentDefinition>

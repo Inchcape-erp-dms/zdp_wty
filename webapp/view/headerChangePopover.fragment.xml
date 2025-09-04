@@ -1,0 +1,55 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:core="sap.ui.core">
+    <ResponsivePopover title="{i18n>changeWtyHeaderFields}" placement="Bottom" contentWidth="auto" afterClose="onExit">
+        <content>
+            <l:VerticalLayout class="sapUiContentPadding" width="100%">
+                <l:content>
+                    <FlexBox width="auto" alignItems="Start" justifyContent="SpaceBetween">
+                        <items>
+                            <VBox>
+                                <Label text="{/#WtyHeader/ReferenceDate/@sap:label}" />
+                                <DatePicker id="idReferenceDate" value="{path:'ReferenceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'full', strictParsing: true, UTC: true}}" width="auto" enabled="{viewModel>/isChangeable}" valueState="{path:'ReferenceDate', formatter:'.isValidDate'}" change="onRefDateChange"/>
+                            </VBox>
+                        </items>
+                    </FlexBox>
+                    <Label text="{ReferenceNr/#@sap:label}" visible="{= ${ClaimType} !== 'ZAUT'}"/>
+                    <Input id="idReferenceNr" type="Text" value="{ReferenceNr}" width="auto" enabled="{viewModel>/isKmsAndDealerChangable}" visible="{= ${ClaimType} !== 'ZAUT'}"/>
+                    <Label text="{Mileage/#@sap:label}" visible="{= ${ClaimType} !== 'ZZPC'}" />
+                    <Input id="idMileage" type="Text"  value="{path: 'Mileage', formatter: '.formatter.formatKMS'}" description="{MileageUOM}" width="auto" liveChange="checkKms" enabled="{viewModel>/isKmsAndDealerChangable}" visible="{= ${ClaimType} !== 'ZZPC'}" />
+                    <Label text="{i18n>Symptom Category}" required="false" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}"/>
+                    <Select id="idSymptomCategory" autoAdjustWidth="false" forceSelection="false" items="{path: 'WtySymptomCateg>/results'}" change="onSymTrbCategoryChange" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}">
+                        <core:Item key="{WtySymptomCateg>SymptomCategory}" text="{WtySymptomCateg>SymptomCategory}-{WtySymptomCateg>SymptomCategName}" />
+                    </Select>
+                    <Label text="{SymptomCode/#@sap:label}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" />
+                    <Select id="idSymptomCode" autoAdjustWidth="true" change="onSymTrbCategoryChange" items="{path: 'WtySymptomCodes>/results', filters: [{path:'SymptomCategory',operator:'NE',value1:''}]}" selectedKey="{SymptomCode}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}" width="auto">
+                        <core:Item key="{WtySymptomCodes>SymptomCode}" text="{WtySymptomCodes>SymptomCode}-{WtySymptomCodes>SymptomCodeName}" />
+                    </Select>
+                    <Label text="{i18n>Trouble Category}" required="false" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}"/>
+                    <Select id="idTroubleCategory" autoAdjustWidth="false" forceSelection="false" items="{path: 'WtyTroubleCategory>/results'}" change="onSymTrbCategoryChange" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}">
+                        <core:Item key="{WtyTroubleCategory>TroubleCategory}" text="{WtyTroubleCategory>TroubleCategory}-{WtyTroubleCategory>TroubleCategName}" />
+                    </Select>
+                    <Label text="{/#WtyHeader/TroubleCode/@sap:label}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" />
+                    <Select id="idTroubleCode" autoAdjustWidth="true" change="onSymTrbCategoryChange" items="{path: 'WtyTroubleCodes>/results', filters: [{path:'TroubleCategory',operator:'NE',value1:''}]}" selectedKey="{TroubleCode}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}" width="auto">
+                        <core:Item key="{WtyTroubleCodes>TroubleCode}" text="{WtyTroubleCodes>TroubleCode}-{WtyTroubleCodes>TroubleCodeName}" />
+                    </Select>
+                    <Label text="{/#WtyHeader/PartsInvoiceDate/@sap:label}" visible="{path:'ClaimType',formatter:'.partsInvoiceDateVisible'}" />
+                    <DatePicker id="idPartsInvoiceDate" value="{path:'PartsInvoiceDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}" width="auto" visible="{path:'ClaimType',formatter:'.partsInvoiceDateVisible'}" enabled="{viewModel>/isChangeable}"/>
+                    <!--                     <Label text="{/#WtyHeader/ClaimSubmissionDate/@sap:label}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" /><DatePicker value="{path:'ClaimSubmissionDate', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}" width="auto" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}"/> -->
+                    <!--                     <Label text="{/#WtyHeader/ClaimCategoryCode/@sap:label}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" /><Select id="idClaimCategoryCode" autoAdjustWidth="true" items="{/WtyClaimCatCodes}" selectedKey="{ClaimCategoryCode}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}" width="auto"><core:Item key="{ClaimCatCode}" text="{ClaimCatCodeName}" /></Select> -->
+                    <Label text="{/#WtyHeader/LocationGridCode/@sap:label}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" />
+                    <Input id="idLocationGridCode" value="{LocationGridCode}" valueStateText="Enter location grid code" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}" width="auto" maxLength="3"/>
+                    <Label text="{/#WtyHeader/DiagnosisTroubleCode/@sap:label}" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" />
+                    <Input id="idDiagnosisTroubleCode" value="{DiagnosisTroubleCode}" valueStateText="Enter trouble code" visible="{path:'SymptomCode',formatter:'.isCustomerInchcape'}" enabled="{viewModel>/isChangeable}" width="auto" maxLength="150"/>
+                </l:content>
+            </l:VerticalLayout>
+        </content>
+        <beginButton>
+            <Button id="idHandlePopoverConfirmBtn" text="{i18n>confirm}" press="handlePopoverConfirmButton" visible="{= ( ${viewModel>/isChangeable} === true || ${viewModel>/isKmsAndDealerChangable} === true ) &amp;&amp; ${viewModel>/refDateIsValid} === true }"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press="handlePopoverCancelButton" />
+        </endButton>
+    </ResponsivePopover>
+</core:FragmentDefinition>

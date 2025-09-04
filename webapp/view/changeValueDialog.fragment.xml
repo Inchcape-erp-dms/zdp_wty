@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>changeItemValueDialogTitle}" contentWidth="30rem">
+        <content>
+            <Text text="{i18n>changeItemValueDialogConfirmMsg} {Material}?" class="sapUiSmallMarginBottom" />
+                    <Input id="newValue" type="Number" value="{path:'ValueIC',formatter:'.formatter.currencyValue'}" liveChange="onValueLiveChange"/>
+              </content>
+        <buttons>
+            <Button id="confirmButton" text="{i18n>confirm}" type="Transparent" press="onValueDialogConfirm"></Button>
+            <Button text="{i18n>cancel}" type="Transparent" press="onDialogCancel"></Button>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

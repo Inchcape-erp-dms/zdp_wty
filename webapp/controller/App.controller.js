@@ -1,0 +1,2 @@
+sap.ui.define(["hicron/dp/wty/controller/BaseController","sap/ui/model/json/JSONModel"],function(n,o){"use strict";return n.extend("hicron.dp.wty.controller.App",{onInit:function(){n.prototype.onInit.apply(this,arguments)}})});
+//# sourceMappingURL=App.controller.js.map

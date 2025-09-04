@@ -1,0 +1,118 @@
+<mvc:View controllerName="hicron.dp.wty.controller.Enquiry" xmlns:u="sap.ui.unified" xmlns:t="sap.ui.table" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:c="hicron.dp.wty.controls" xmlns:core="sap.ui.core" displayBlock="true">
+	<App id="app">
+		<pages>
+			<Page title="{i18n>wtyEnquiryTitle}">
+				<headerContent>
+					<core:Fragment fragmentName="encollab.dp.info.InfoButton" type="XML"/>
+				</headerContent>
+				<c:SearchToolbar id="wtySearchBar" filter="onSearchFilter" search="onSearchSearch" showHeader="false"/>
+				<!--           <ObjectAttribute title="{MaterialAndSerial/#@sap:label}" text="{path:'MaterialAndSerial'}" />
+            <ObjectAttribute title="{PartnerName/#@sap:label}" text="{path:'PartnerName'}" />
+            <ObjectAttribute title="{ReferenceNr/#@sap:label}" text="{path:'ReferenceNr'}" />
+            <ObjectAttribute title="{ClaimNr/#@sap:label}" text="{path:'ClaimNr',formatter:'.formatter.Number'}" />
+            <ObjectAttribute title="{ReferenceDate/#@sap:label}" text="{path:'ReferenceDate',formatter:'.formatter.Date'}" />
+            <ObjectAttribute title="{CustomerPONr/#@sap:label}" text="{path:'CustomerPONr'}" /> -->
+				<FacetFilter id="idFacetFilterWty" type="Simple" showPersonalization="true" showReset="true" reset="handleFacetFilterReset"
+					confirm="handleConfirmFilter" visible="{viewModel>/facetFilterVis}">
+					<lists>
+						<FacetFilterList title="Status" key="Status" mode="MultiSelect" items="{path:'/GetWarrantyStatuses', templateShareable: 'true'}"
+							updateFinished="onFacetFilterUpdateFinished">
+							<items>
+								<FacetFilterItem text="{Astate}-{Abdes}" key="{Astate}"/>
+							</items>
+						</FacetFilterList>
+					</lists>
+				</FacetFilter>
+				<t:Table id="wtyTable" noData="{i18n>wtyEnquiryNoDataText}" selectionMode="None" visibleRowCount="13" enableBusyIndicator="true"
+					threshold="30">
+					<t:toolbar>
+						<Toolbar>
+							<Title id="wtyListToolbarTitle"/>
+							<ToolbarSpacer />
+							<Button icon="sap-icon://synchronize" press="ListRefresh"/>
+							<Button icon="sap-icon://excel-attachment" press="onExport"/>
+						</Toolbar>
+					</t:toolbar>
+					<t:columns>
+						<t:Column sortProperty="ClaimNr" sorted="true">
+							<Label text="{/#WtyHeader/ClaimNr/@sap:label}"/>
+							<t:template>
+								<Link text="{ClaimNr}" press="onPress"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="ProcessingStatus" width="15em" sorted="true">
+							<Label text="{/#WtyHeader/ProcessingStatus/@sap:label}"/>
+							<t:template>
+								<ObjectStatus text="{ProcessingStatus}-{ProcessingStatusText}" state="{path:'ProcessingStatus',formatter:'.formatter.wtyStatusState'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="MaterialAndSerial" width="12em" sorted="true">
+							<Label text="{/#WtyHeader/MaterialAndSerial/@sap:label}"/>
+							<t:template>
+								<Text text="{MaterialAndSerial}"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="PartnerName" sorted="true">
+							<Label text="{/#WtyHeader/PartnerName/@sap:label}"/>
+							<t:template>
+								<Text text="{PartnerName}"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="ReferenceNr" sorted="true">
+							<Label text="{/#WtyHeader/ReferenceNr/@sap:label}"/>
+							<t:template>
+								<Link text="{ReferenceNr}" press="onPress"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="ReferenceDate" sorted="true">
+							<Label text="{/#WtyHeader/ReferenceDate/@sap:label}"/>
+							<t:template>
+								<Text text="{path:'ReferenceDate',formatter:'.formatter.ShortDate'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="ValueIC" hAlign="End" sorted="true">
+							<Label text="{/#WtyHeader/ValueIC/@sap:label}"/>
+							<t:template>
+								<u:Currency maxPrecision="2" value="{path: 'ValueIC', formatter: '.formatter.parseFloat'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="ValueOC" hAlign="End" sorted="true">
+							<Label text="{/#WtyHeader/ValueOC/@sap:label}"/>
+							<t:template>
+								<u:Currency maxPrecision="2" value="{path: 'ValueOC', formatter: '.formatter.parseFloat'}"/>
+							</t:template>
+						</t:Column>						
+					</t:columns>
+				</t:Table>
+				<!--<List
+                id="wtyList"
+                visible="true"
+                mode="SingleSelectMaster"
+                noDataText="{i18n>wtyEnquiryNoDataText}"
+                select="onPress"
+                growing="true"
+                growingScrollToLoad="true" >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title id="wtyListToolbarTitle" />
+                    </Toolbar>
+                </headerToolbar>
+            </List> -->
+				<footer>
+					<Toolbar>
+						<core:Fragment fragmentName="encollab.dp.about.MessageButton" type="XML"/>
+						<ToolbarSpacer/>
+						<ToolbarSpacer/>
+						<!--                 <Button
+                    icon="sap-icon://create"
+                    text="{i18n>wtyClaimCreateButtonTooltip}"
+                    tooltip="{i18n>wtyClaimCreateButtonTooltip}"
+                    enabled="{path:'/Users(\'SY-UNAME\')/Authorisations/WarrantyCreate'}"
+                    press="onCreateClaim" /> -->
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

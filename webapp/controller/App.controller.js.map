@@ -1,0 +1,1 @@
+{"version":3,"file":"App.controller.js","names":["sap","ui","define","BaseController","JSONModel","extend","onInit","prototype","apply","this","arguments"],"sources":["App-dbg.controller.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,CAEb,0CACA,+BACE,SAAUC,EAAgBC,GAC5B,aAEA,OAAOD,EAAeE,OAAO,+BAAgC,CAE5DC,OAAQ,WACPH,EAAeI,UAAUD,OAAOE,MAAMC,KAAMC,UAuB7C,GAGF","ignoreList":[]}

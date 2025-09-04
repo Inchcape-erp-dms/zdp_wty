@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>addSerialNumber}" contentWidth="30rem" >
+        <content>
+        	<VBox alignContent="SpaceAround">
+        		<Text text="Serial No. is related with different VIN. Do you want to confirm?" class="sapUiDemoWTProductRating"></Text>
+        	</VBox>
+        </content>
+        <buttons>
+            <Button id="warningConfirmButtonId" text="{i18n>confirm}" type="Transparent" press="onWarningConfirm"></Button>
+            <Button text="{i18n>cancel}" type="Transparent" press="onWarningCancel"></Button>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

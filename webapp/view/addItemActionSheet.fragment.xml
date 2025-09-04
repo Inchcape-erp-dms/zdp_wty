@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <ActionSheet
+    title="Choose Item Type"
+    showCancelButton="true"
+    placement="Bottom">
+    <buttons>
+      <Button text="Material" icon="sap-icon://add-equipment" press="onItemAddMaterial"/>
+      <Button text="Sundry" icon="sap-icon://add-product" press="onItemAddSundry" />
+      <Button text="Flat Rate" icon="sap-icon://add-activity" press="onItemAddFlatRate" />
+      <Button text="Sublet" icon="sap-icon://add-activity-2" press="onItemAddSublet" />
+    </buttons>
+  </ActionSheet>
+</core:FragmentDefinition>

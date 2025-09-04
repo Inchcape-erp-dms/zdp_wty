@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:dp="encollab.dp.controls" xmlns="sap.m">
+    <l:Grid defaultSpan="L12 M12 S12" width="auto">
+        <l:content>
+            <Table id="wtyItems" noDataText="No data" updateFinished="onUpdateFinished" items="{WtyItems}">
+                <columns>
+                    <Column mergeDuplicates="true" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+                        <header>
+                            <Label text="{/#WtyItem/ControllingItemType/@sap:label}"></Label>
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="{/#WtyItem/MaterialDesc/@sap:label}"></Label>
+                        </header>
+                    </Column>
+                    <Column hAlign="Center" minScreenWidth="tablet" demandPopin="true">
+                        <header>
+                            <Label text="{/#WtyItem/Qty/@sap:label}" textAlign="Center"></Label>
+                        </header>
+                    </Column>
+                    <Column hAlign="Right" minScreenWidth="tablet" demandPopin="true">
+                        <header>
+                            <Label text="{/#WtyItem/ValueIC/@sap:label}" textAlign="Right"></Label>
+                        </header>
+                    </Column>
+                    <Column hAlign="Right" minScreenWidth="tablet" demandPopin="true">
+                        <header>
+                            <Label text="{/#WtyItem/ValueOC/@sap:label}" textAlign="Right"></Label>
+                        </header>
+                    </Column>
+                    <Column hAlign="Left" width="270px" minScreenWidth="tablet" demandPopin="true" visible="{viewModel>/SerialColumnVis}">
+                        <header>
+                            <Label text="{/#WtyItem/SerNumber/@sap:label}" textAlign="Right"></Label>
+                        </header>
+                    </Column>
+                    <Column width="2px" />
+                    <Column hAlign="Right" visible="{viewModel>/isChangeable}">
+                        <header>
+                            <Button icon="sap-icon://add" press="onItemAdd" tooltip="Add item" />
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <core:Fragment fragmentName="hicron.dp.wty.view.ItemsTemplate" type="XML" />
+                </items>
+            </Table>
+        </l:content>
+    </l:Grid>
+</core:FragmentDefinition>

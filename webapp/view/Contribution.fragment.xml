@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <t:Table id="table" selectionMode="None" rows="{contribModel>/Items}" visibleRowCount="3">
+        <t:title>
+            <HBox>
+                <items>
+                    <core:Icon src="sap-icon://cart" alt="Cart" size="1.25rem" />
+                    <Title text="Suggested Contributions" titleStyle="H3" class="sapUiTinyMarginBeginEnd" />
+                </items>
+            </HBox>
+        </t:title>
+        <t:columns>
+            <t:Column width="11rem">
+                <t:template>
+                    <Text text="{contribModel>label}" />
+                </t:template>
+            </t:Column>
+            <t:Column width="11rem">
+                <Label text="Distributor" />
+                <t:template>
+                    <Input type="Number" maxLength="3" width="4em" change="onContributionChange" value="{path:'contribModel>Distributor', type: 'sap.ui.model.type.Integer', formatOptions: {minIntegerDigits: 1, maxIntegerDigits: 3, minFractionDigits: 0, maxFractionDigits: 0}}" enabled="{path:'WtyItems',formatter:'.isChangeable'}" app:contribGroup="Distributor" app:contribId="{contribModel>id}" />
+                </t:template>
+            </t:Column>
+            <t:Column width="11rem">
+                <Label text="Dealer" />
+                <t:template>
+                    <Input type="Number" maxLength="3" width="4em" change="onContributionChange" value="{path:'contribModel>Dealer', type: 'sap.ui.model.type.Integer', formatOptions: {minIntegerDigits: 1, maxIntegerDigits: 3, minFractionDigits: 0, maxFractionDigits: 0}}" enabled="{path:'WtyItems',formatter:'.isChangeable'}" app:contribGroup="Dealer" app:contribId="{contribModel>id}" />
+                </t:template>
+            </t:Column>
+            <t:Column width="12rem">
+                <Label text="Customer" />
+                <t:template>
+                    <Input type="Number" maxLength="3" width="4em" change="onContributionChange" value="{path:'contribModel>Customer', type: 'sap.ui.model.type.Integer', formatOptions: {minIntegerDigits: 1, maxIntegerDigits: 3, minFractionDigits: 0, maxFractionDigits: 0}}" enabled="{path:'WtyItems',formatter:'.isChangeable'}" app:contribGroup="Customer" app:contribId="{contribModel>id}" />
+                </t:template>
+            </t:Column>
+            <t:Column width="9rem">
+                <Label text="Total" />
+                <t:template>
+                    <ObjectStatus class="sapUiSmallMarginBottom" text="{parts:[{path:'contribModel>Distributor'},{path:'contribModel>Dealer'},{path:'contribModel>Customer'}], formatter: '.contribTotalFormatter'}%" state="{parts:[{path:'contribModel>Distributor'},{path:'contribModel>Dealer'},{path:'contribModel>Customer'}], formatter: '.contribValStateFormatter'}" />
+                </t:template>
+            </t:Column>
+        </t:columns>
+    </t:Table>
+</core:FragmentDefinition>

@@ -1,0 +1,2 @@
+jQuery.sap.declare("encollab.dp.controls.SupercessionListItem");sap.m.ColumnListItem.extend("encollab.dp.controls.SupercessionListItem",{metadata:{properties:{supercessionRole:{type:"string",defaultValue:"Ancestor"}}},renderer:{renderLIAttributes:function(e,s){e.addClass("sapMListTblRow");var t=s.getVAlign();if(t!=sap.ui.core.VerticalAlign.Inherit){e.addClass("sapMListTblRow"+t)}e.addClass("super"+s.getSupercessionRole())}}});
+//# sourceMappingURL=SupercessionListItem-dbg.js.map

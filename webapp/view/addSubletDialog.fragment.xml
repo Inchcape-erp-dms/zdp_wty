@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns:u="sap.ui.unified" xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>addSubletDialogTitle}" contentWidth="30rem">
+        <content>
+            <VBox fitContainer="true">
+                <items>
+                    <Text text="{i18n>addSubletDialogTitle}?" class="sapUiSmallMarginBottom" />
+                    <Label text="{i18n>subletCatalogCode}" required="true" />
+                    <Input
+						id="subletCodeCatalog"
+						type="Text"
+						textFormatMode="Key"
+						placeholder="Enter Sublet Code ..."
+						showSuggestion="true"
+						valueHelpOnly="true"
+						showValueHelp="true"
+						valueHelpRequest="handleValueHelp"
+						suggestionItems="{/SubletCatalogCodeSet}"
+						suggestionItemSelected="suggestionItemSelected"
+						liveChange="onSubletFieldChange"
+						width="99%">
+						<suggestionItems>
+							<core:ListItem key="{Katnr}" text="{Ltext}" additionalText="{Katnr}" />
+						</suggestionItems>
+					</Input>
+                    <Label text="{/#WtyItem/MaterialDesc/@sap:label}" required="true" />
+                    <Input id="subletDesc" placeholder="Enter description" valueLiveUpdate="true" liveChange="onSubletFieldChange" valueStateText="Enter description" width="99%" />
+                    <Label text="{/#WtyItem/ValueIC/@sap:label}" required="true" />
+                    <Input id="subletValue" type="Number" placeholder="Enter price" valueLiveUpdate="true" liveChange="onSubletFieldChange" valueStateText="Enter price" width="30%" />
+                    <!--<Label text="{/#WtyItem/Qty/@sap:label}" required="true" />-->
+                    <!--<Input id="subletQty" type="Number" placeholder="Enter quantity" valueLiveUpdate="true" liveChange="onSubletFieldChange" valueStateText="Enter quantity" width="30%" />-->
+                    <Label text="{i18n>attachment}" required="true" />
+                    <u:FileUploader id="subletUploader" name="myFileUpload" sendXHR="true" useMultipart="false" uploadUrl="WtyItemAttachments" placeholder="Select attachment" tooltip="Upload your file to the local server" uploadComplete="handleSubletUploadComplete" change="onSubletFieldChange" valueStateText="Select attachment" width="99%" />
+                </items>
+            </VBox>
+        </content>
+        <buttons>
+            <Button id="subletConfirmButton" text="{i18n>confirm}" type="Transparent" press="onSubletConfirm"></Button>
+            <Button text="{i18n>cancel}" type="Transparent" press="onDialogCancel"></Button>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

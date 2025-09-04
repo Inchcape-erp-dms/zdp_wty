@@ -1,0 +1,115 @@
+<mvc:View controllerName="hicron.dp.wty.controller.Detail" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout">
+    
+    <Page title="{i18n>wtyDetailTitle} {path:'ClaimNr',formatter:'.formatter.Number'}">
+        <headerContent>
+            <core:Fragment fragmentName="encollab.dp.info.InfoButton" type="XML" />
+        </headerContent>
+        <content>
+            <ObjectHeader id="idObjHeader" 
+                          responsive="true" 
+                          fullScreenOptimized="false"
+                          title="{WtyHeaderText}" 
+                          intro="{PartnerName}" 
+                          titleActive="true" 
+                          number="${
+                            parts:[
+                                {path:'ValueIC'},
+                                {path:'ValueOC'},
+                                {path:'OCVersionGUID'}
+                            ],
+                            formatter:'.formatter.wtyICOCValue'
+                            }" 
+                          showMarkers="false" 
+                          markFlagged="true" 
+                          markFavorite="true" 
+                          numberState="Success" 
+                          backgroundDesign="Translucent" 
+                          showTitleSelector="true" 
+                          titleSelectorPress="onTitleSelectorPress">
+                </ObjectHeader>
+
+        <l:Grid defaultSpan="L4 M4 S4" class="backgroundFiori" hSpacing="2">
+            <VBox width="100%">
+                    <ObjectAttribute title="VIN" text="{VIN}" active="true" press="onVINPressed" visible="{= ${VIN}.length > 0}" class="paddingProper"/>
+                    <ObjectStatus title="{= ${ClaimType} === 'ZAUT' ? 'PWA Number' : ${ClaimNr/#@sap:label} }" text="{ClaimNr}" class="paddingProper"/>
+                    <ObjectStatus id="idClaimType" title="{ClaimType/#@sap:label}" text="{= ${ClaimTypeDesc} === '' ? ${ClaimType} : ${ClaimTypeDesc}}" class="paddingProper"/>
+                    <ObjectStatus id="idPWACategory" title="{PWACategory/#@sap:label}" text="{PWACategory}" visible="{= ${ClaimType} === 'ZAUT'}" class="paddingProper"/> 
+                    <ObjectStatus title="{ModelDescription/#@sap:label}" text="{ModelDescription}" visible="{= ${VIN}.length > 0}" class="paddingProper"/>
+            </VBox>
+                
+            <VBox width="100%">
+                    <ObjectStatus title="{ReferenceNr/#@sap:label}" text="{ReferenceNr}" visible="{= ${ClaimType} !== 'ZAUT'}" state="{= ${ReferenceNr}.length === 0 ? 'Error' : 'None' }" icon="{= ${ReferenceNr}.length === 0 ? 'sap-icon://alert' : '' }" class="paddingProper"/>
+                    <ObjectStatus title="{ReferenceDate/#@sap:label}" text="{path:'ReferenceDate',type: 'sap.ui.model.type.Date',formatOptions: { style: 'medium'}}" class="paddingProper"/>
+                    <ObjectStatus title="{i18n>wtyClaimSubmDate}" text="{= ${ClaimSubmissionDate} === null ? '-' : ${path:'ClaimSubmissionDate', type: 'sap.ui.model.type.Date',formatOptions: { style: 'medium'}} }" class="paddingProper"/>
+                    <ObjectStatus title="{CreditNoteDate/#@sap:label}" text="{= ${CreditNoteDate} === null ? '-' : ${path:'CreditNoteDate', type: 'sap.ui.model.type.Date',formatOptions: { style: 'medium'}} }" visible="{= ${ClaimType} !== 'ZAUT'}" class="paddingProper"/>
+            </VBox>
+
+            <VBox width="100%">
+                    <ObjectStatus title="{ValueIC/#@sap:label}" text="${ValueIC}" class="paddingProper"/>
+                    <ObjectStatus title="{ValueOC/#@sap:label}" text="${ValueOC}" class="paddingProper"/>
+                    <ObjectStatus title="{MainOperationCode/#@sap:label}" text="{MainOperationCodeDesc}" class="paddingProper"/>
+                    <ObjectStatus title="{CreatedBy/#@sap:label}" text="{CreatedBy}" class="paddingProper"/>
+                    <ObjectStatus title="{ProcessingStatus/#@sap:label}" text="{ProcessingStatusText}" state="{path:'ProcessingStatus',formatter:'.formatter.wtyStatusState'}" class="paddingProper"/>
+                    <ObjectStatus title="{CreditNoteNumber/#@sap:label}" text="{= ${CreditNoteNumber} === '' ? '-' : ${CreditNoteNumber}}" visible="{= ${ClaimType} !== 'ZAUT'}" class="paddingProper"/>
+             </VBox>
+
+        </l:Grid>
+            <MessageStrip text="{/WtyHeaders/AdjudicationText/#@sap:label}: {AdjudicationText}" visible="{path:'AdjudicationText',formatter:'.formatter.exists'}" type="Error" showIcon="true" showCloseButton="false">
+            </MessageStrip>
+            <MessageStrip
+                text="{i18n>partsReturnMessage}"
+                type="Warning"
+                showCloseButton="false"
+                class="sapUiMediumMarginBottom"
+                visible="{= ${ProcessingStatus} === 'ZRET'}">
+                <link>
+                    <Link text="{i18n>partsReturnLink}"
+                        press="onPartsReturnPress" />
+                </link>
+            </MessageStrip>
+            <IconTabBar id="iconTabBar" select="onIconTabBarSelect" expandable="false">
+                <items>
+                    <IconTabFilter id="iconTabIC" key="ic" text="{i18n>items}" icon="sap-icon://sales-order-item" count="{path:'WtyItems',formatter:'.formatter.arrayCount'}" >
+                        <content>
+                            <core:Fragment fragmentName="hicron.dp.wty.view.Items" type="XML" />
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter id="iconTabTexts" text="{i18n>wtyDetailTexts}" icon="sap-icon://document-text" visible="{path:'ClaimNr',formatter:'.isCustomerInchcape'}">
+                        <content>
+                            <core:Fragment fragmentName="hicron.dp.wty.view.texts" type="XML" />
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter id="attachTab" key="attach" text="{i18n>attachments}" icon="sap-icon://attachment" count="{path:'WtyHeaderAttachments',formatter:'.formatter.arrayCount'}" visible="{path:'WtyHeaderAttachments',formatter:'.attachmentsVisible'}">
+                        <content>
+                            <core:Fragment fragmentName="hicron.dp.wty.view.Attachments" type="XML" />
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter id="formTab" key="form" text="{i18n>wtyDetailForms}" icon="sap-icon://form" count="{path:'Forms',formatter:'.formatter.arrayCount'}" visible="{path:'Forms',formatter:'.attachmentsVisible'}">
+                        <content>
+                            <core:Fragment fragmentName="hicron.dp.wty.view.Forms" type="XML" />
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter id="contribTab" key="contrib" text="{i18n>wtyDetailContrib}" icon="sap-icon://share-2" visible="{= ${ClaimType} === 'ZAUT'}" iconColor="{= ${viewModel>/showContributionError} ? 'Negative' : 'Default'}">
+                        <content>
+                            <core:Fragment fragmentName="hicron.dp.wty.view.Contribution" type="XML" />
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <footer>
+            <Toolbar>
+                <core:Fragment fragmentName="encollab.dp.about.MessageButton" type="XML" />
+                <ToolbarSpacer/>
+                <ToolbarSpacer/>
+                <Button id="amendButton" icon="sap-icon://restart" type="Default" text="Amend Claim" press="onClaimAmend" visible="{viewModel>/isAmendable}" />
+                <Button id="pwaButton" icon="sap-icon://payment-approval" text="PWA" press="onPWACreate" visible="{viewModel>/isPWAAllowed}"  enabled="{viewModel>/isReadyToSubmit}"/>
+                <Button id="submitButton" icon="sap-icon://paper-plane" type="Emphasized" text="Submit" press="onClaimSubmit" visible="{viewModel>/isSubmitable}" enabled="{viewModel>/isReadyToSubmit}"/>
+                <Button id="createButton" icon="sap-icon://create" type="Emphasized" text="{i18n>wtyPWACreateButtonTooltip}" press="onClaimCreate" visible="{viewModel>/isPWACreateable}" enabled="{path:'ClaimNr',formatter:'.isReadyToCreate'}"/>
+                <Button id="deleteButton" icon="sap-icon://delete" press="onClaimDelete" visible="{viewModel>/isDeleteable}" />
+                <Button id="partsSentButton" icon="sap-icon://shipping-status" text="Parts Sent" press="onPartsSent" visible="{viewModel>/isZCN1}" />
+                <!-- <Button id="resubmitPwaButton" icon="sap-icon://refresh" text="Resubmit PWA" press="onResubmitPwa" visible="{viewModel>/isResubmitablePWA}" /> -->
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

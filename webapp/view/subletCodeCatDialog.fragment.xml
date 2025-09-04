@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="{i18n>subletCatalogCode}"
+		class="sapUiPopupWithPadding"
+		items="{/SubletCatalogCodeSet}"
+		search="_handleValueHelpSearchSubCat"
+		confirm="_handleValueHelpCloseSubCat"
+		cancel="_handleValueHelpCloseSubCat">
+		<StandardListItem
+			title="{Katnr}"
+			description="{Ltext}" />
+	</SelectDialog>
+</core:FragmentDefinition>

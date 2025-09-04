@@ -1,0 +1,193 @@
+.sapUiDemoWT .myCustomButton.sapMBtn {
+  margin-right: 0.125rem;
+}
+.sapUiDemoWT .myCustomText {
+  font-weight: bold;
+}
+/*  ProductRating */
+.sapUiDemoWTProductRating {
+  padding: 0.75rem;
+}
+.sapUiDemoWTProductRating .sapMRI {
+  vertical-align: initial;
+}
+.sapMInputBase {
+  padding: 0.25rem 2px;
+}
+.topmargin2rem {
+  margin-top: 2rem;
+}
+.superAncestor {
+  background-color: rgba(255, 185, 185, 0.8) !important;
+}
+.superDescendant {
+  background-color: #84a77e !important;
+}
+.superSelf {
+  background-color: #99ff99 !important;
+}
+.roleCausalPart {
+  background-color: #99ff99 !important;
+}
+.roleCausalLabor {
+  background-color: #ccff66 !important;
+}
+.roleTAPA {
+  background-color: #339966 !important;
+}
+.roleZTAQ {
+  background-color: #66ccff !important;
+}
+.roleZTAE {
+  background-color: #ffff99 !important;
+}
+.roleZTAE > td {
+  font-style: italic;
+}
+.roleZTAE > td:nth-child(2) {
+  text-indent: 10px;
+}
+.roleLOST {
+  background-color: rgba(255, 185, 185, 0.8) !important;
+}
+.roleSUPER {
+  background-color: #99ff99 !important;
+}
+.roleSUPER > td {
+  font-style: italic;
+}
+.roleSUPER > td:nth-child(2) {
+  text-indent: 10px;
+}
+.roleBACKORDER {
+  background-color: #B3B3B3 !important;
+}
+.roleBB {
+  background-color: rgba(255, 185, 185, 0.8) !important;
+}
+.itemQtyChange > .sapMInputBaseInner {
+  font-size: 3em;
+  color: #666666;
+  height: 3.5rem;
+}
+.qtyError > input {
+  color: red !important;
+}
+.wtyValueIC > span > div {
+  font-weight: bold;
+}
+.commentUser {
+  font-size: 0.875rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  line-height: 1.4;
+  color: #00679e;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: normal;
+}
+div[data-coloremptyclass=""] > input {
+  border-color: red !important;
+  border-style: solid;
+  border-width: 2px;
+}
+.commentTstamp {
+  font-size: 0.6em;
+  color: #B3B3B3;
+}
+.commentText {
+  opacity: 1;
+}
+.commentText > textarea {
+  line-height: normal;
+  border: 0 solid;
+}
+.tickerTape {
+  font-family: monospace;
+  font-size: 1.2em;
+}
+.highlighter {
+  background-color: yellow;
+}
+.smaller {
+  height: 24px !important;
+}
+.toolbarHeading {
+  height: 3rem !important;
+  line-height: 3rem;
+  padding: 0 1rem 0 1rem;
+  box-sizing: border-box;
+}
+.moreMargin {
+  margin-top: 1em;
+}
+.bold {
+  font-weight: bold !important;
+  color: #333333 !important;
+}
+.fprsHeader .sapMObjectAttributeTitle {
+  color: #333333 !important;
+  font-weight: bold !important;
+}
+.sapMFeedListItemTextName,
+.sapMFeedListItemTextName a,
+.sapMFeedListItemTextName span,
+.sapMFeedListItemTextName textarea {
+  width: 100% !important;
+}
+.sapUiRootBackground,
+.sapMShellGlobalOuterBackground {
+  width: 100%;
+  height: 100%;
+  background: url('../img/bg_SAP.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.backgroundFiori {
+  background: #eff4f9;
+  border-bottom: 0.125rem solid #d1e0ee;
+  padding-top: 1rem !important;
+  padding-bottom: 0.3rem !important;
+}
+.paddingProper {
+  padding-top: 0.3rem;
+}
+@media print {
+  body {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  [id^="__page"][id$="-page-cont"] {
+    overflow: visible !important;
+    height: 99% !important;
+    display: block !important;
+  }
+  footer {
+    visibility: hidden;
+  }
+  [id^="__bar"][id$="--header"] {
+    width: 10%;
+  }
+  label {
+    width: 100%;
+  }
+  div {
+    width: 99%;
+    overflow: visible !important;
+  }
+}
+@media only screen and (min-width: 1020px) {
+  .formMargin {
+    margin: 75px 150px !important;
+  }
+}
+@media only screen and (max-width: 1019px) {
+  .formMargin {
+    margin: inherit !important;
+  }
+}
